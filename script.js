@@ -20,20 +20,12 @@ let yellowMove = 0;
 let currentPlayer = 1;
 
 const moveBall = function (currentPlayer, ballMove) {
+  const element = document.querySelector(`.p${currentPlayer}-move`);
+  element.classList.remove('hidden');
   if (boxes[ballMove - 1] !== '') {
-    boxes[ballMove - 1].insertAdjacentHTML(
-      'afterbegin',
-      `<p class="p${currentPlayer}-move"></p>`
-    );
+    boxes[ballMove - 1].insertAdjacentElement('afterbegin', element);
   } else {
-    boxes[ballMove].innerHTML = `<p class="p
-      ${currentPlayer}-move"></p>`;
-  }
-};
-
-const removeBall = function (position) {
-  if (position !== 0) {
-    boxes[position - 1].innerHTML = '';
+    boxes[ballMove].insertAdjacentElement('afterbegin', element);
   }
 };
 
@@ -44,11 +36,9 @@ btnRoll.addEventListener('click', function (event) {
 
   // moving ball
   if (currentPlayer === 1) {
-    removeBall(redMove);
     redMove += number;
     moveBall(currentPlayer, redMove, number);
   } else {
-    removeBall(yellowMove);
     yellowMove += number;
     moveBall(currentPlayer, yellowMove, number);
   }
