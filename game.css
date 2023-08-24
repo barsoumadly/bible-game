@@ -85,7 +85,7 @@ body {
   margin-left: 20px;
   animation-name: ballMove;
   animation-timing-function: ease-out;
-  animation-duration: 1s;
+  animation-duration: 3s;
 }
 
 #tog,

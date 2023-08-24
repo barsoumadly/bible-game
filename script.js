@@ -18,6 +18,7 @@ const generateRandomNumber = function () {
 let redMove = 0;
 let yellowMove = 0;
 let currentPlayer = 1;
+let isWinner = false;
 
 // reversing boxes nodeList
 boxes = Array.from(boxes);
@@ -26,10 +27,15 @@ boxes.reverse();
 const moveBall = function (currentPlayer, ballMove) {
   const element = document.querySelector(`.p${currentPlayer}-move`);
   element.classList.remove('hidden');
-  if (boxes[ballMove - 1] !== '') {
-    boxes[ballMove - 1].insertAdjacentElement('afterbegin', element);
+  const index = ballMove - 1;
+  if (boxes[index]) {
+    if (boxes[index] !== '') {
+      boxes[index].insertAdjacentElement('afterbegin', element);
+    } else {
+      boxes[index - 1].insertAdjacentElement('afterbegin', element);
+    }
   } else {
-    boxes[ballMove].insertAdjacentElement('afterbegin', element);
+    isWinner = true;
   }
 };
 
@@ -46,19 +52,27 @@ const changeActivePlayer = function () {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
 };
 
+const checkWinner = function () {
+  if (boxes[boxes.length - 1].innerHTML !== '') {
+    isWinner = true;
+  }
+};
+
 btnRoll.addEventListener('click', function (event) {
   event.preventDefault();
   const number = generateRandomNumber();
   diceEL.textContent = number;
 
   // moving ball
-  if (currentPlayer === 1) {
-    redMove += number;
-    moveBall(currentPlayer, redMove, number);
-  } else {
-    yellowMove += number;
-    moveBall(currentPlayer, yellowMove, number);
+  if (!isWinner) {
+    if (currentPlayer === 1) {
+      redMove += number;
+      moveBall(currentPlayer, redMove, number);
+    } else {
+      yellowMove += number;
+      moveBall(currentPlayer, yellowMove, number);
+    }
+    checkWinner();
+    changeActivePlayer();
   }
-
-  changeActivePlayer();
 });
