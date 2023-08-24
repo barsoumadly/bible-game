@@ -43,19 +43,17 @@ body {
 }
 
 #p1 {
-  position: relative;
-  top: 0px;
+  position: fixed;
+  margin-top: 200px;
+  margin-left: -50px;
   transition: all linear 0.5s;
-  /* top: 0; */
-  left: -62px;
   z-index: 2;
 }
 
 #p2 {
   z-index: 2;
-  position: relative;
-  top: -55px;
-  left: -62px;
+  position: fixed;
+  margin-top: 250px;
   transition: all linear 0.5s;
   background-color: rgb(243, 181, 46);
 }
@@ -68,9 +66,11 @@ body {
   position: relative;
   border: 3px solid black;
   z-index: 2;
-  transition: all linear 0.5s;
   margin-top: 5px;
   margin-left: 20px;
+  animation-name: ballMove;
+  animation-timing-function: ease-out;
+  animation-duration: 1s;
 }
 
 .p2-move {
@@ -81,9 +81,11 @@ body {
   position: relative;
   border: 3px solid black;
   z-index: 2;
-  transition: all linear 0.5s;
   margin-top: 5px;
   margin-left: 20px;
+  animation-name: ballMove;
+  animation-timing-function: ease-out;
+  animation-duration: 1s;
 }
 
 #tog,
@@ -122,6 +124,15 @@ img {
 
 .hidden {
   display: none;
+}
+
+@keyframes ballMove {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1px;
+  }
 }
 
 @media (max-width: 1250px) {
